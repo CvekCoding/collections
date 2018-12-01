@@ -40,9 +40,15 @@ class ClosureExpressionVisitor extends ExpressionVisitor
         }
 
         $accessors = ['get', 'is'];
-
         foreach ($accessors as $accessor) {
-            $accessor .= $field;
+	        if (false !== strpos($field, '.')) {
+		        list($field, $subField) = explode('.', $field, 2);
+		        $object = self::getObjectFieldValue($object, $field);
+
+		        return self::getObjectFieldValue($object, $subField);
+	        }
+
+	        $accessor .= $field;
 
             if (! method_exists($object, $accessor)) {
                 continue;

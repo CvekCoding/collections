@@ -54,7 +54,11 @@ class ClosureExpressionVisitor extends ExpressionVisitor
                 continue;
             }
 
-            return $object->$accessor();
+            if ('name' === $field) {
+            	return !empty($name = strtolower($object->$accessor())) ? strtolower($name) : '';
+            } else {
+	            return strtolower($object->$accessor());
+            }
         }
 
         // __call should be triggered for get.

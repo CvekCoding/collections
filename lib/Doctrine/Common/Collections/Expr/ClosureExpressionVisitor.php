@@ -57,7 +57,7 @@ class ClosureExpressionVisitor extends ExpressionVisitor
             if ('name' === $field) {
             	return !empty($name = strtolower($object->$accessor())) ? strtolower($name) : '';
             } else {
-	            return strtolower($object->$accessor());
+	            return $object->$accessor();
             }
         }
 
